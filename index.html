@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WEBWORKS | Premium Digital Solutions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* --- BASE & CORE --- */
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; cursor: none !important; scroll-behavior: smooth; }
+
+body {
+    background: #000;
+    color: #cfc0c0;
+    overflow-x: hidden;
+}
+
+/* --- CUSTOM INTERACTIVE CURSOR --- */
+#cursor {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.1s ease;
+}
+#cursor-follower {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(178, 141, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.12s ease-out;
+}
+
+/* --- TRANSPARENT HERO SECTION --- */
+header {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Clean transparent background with a subtle glow */
+    background: radial-gradient(circle at 50% 50%, rgba(178, 141, 255, 0.08) 0%, transparent 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title {
+    font-size: clamp(60px, 8vw, 180px);
+    font-weight: 900;
+    letter-spacing: -6px;
+    background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- TIGHTER NAVIGATION --- */
+nav {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+nav a {
+    color: #888;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.2s;
+}
+
+nav a:hover { color: #b28dff; }
+
+/* --- COMPACT SECTIONS --- */
+section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.reveal-box {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: all 0.4s ease-out; /* Faster transitions */
+}
+
+.reveal-box.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #b28dff;
+}
+
+/* --- CARDS --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(178, 141, 255, 0.5);
+    background: rgba(255,255,255,0.04);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: 0.4s;
+}
+
+.card:hover img { filter: grayscale(0%); transform: scale(1.03); }
+
+.card-content { padding: 25px; }
+
+/* --- BUTTONS --- */
+.buy-btn {
+    width: 100%;
+    padding: 16px;
+    background: #b28dff;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+.buy-btn:hover { background: #fff; transform: scale(0.97); }
+
+.confirm-btn {
+    width: 100%;
+    background: transparent;
+    color: #555;
+    border: 1px solid #222;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+.confirm-btn.enabled { border-color: #b28dff; color: #b28dff; }
+
+/* --- FLOATING WHATSAPP --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+footer { padding: 60px; text-align: center; color: #333; font-size: 11px; letter-spacing: 1px; }
+
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-follower"></div>
+
+<header>
+    <h1 class="hero-title">WEBWORKS</h1>
+    <p style="color: #666; letter-spacing: 3px; font-weight: 300;">PREMIUM DIGITAL ARCHITECTURE</p>
+</header>
+
+<nav>
+    <a href="#about">Agency</a>
+    <a href="#info">Core</a>
+    <a href="#cost">Pricing</a>
+    <a href="#works">Work</a>
+</nav>
+
+<section id="about">
+    <div class="reveal-box">
+        <h2>01. Agency</h2>
+        <div class="card" style="display: flex; flex-wrap: wrap;">
+            <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" style="width: 40%; min-width: 300px; height: 350px;">
+            <div style="padding: 40px; flex: 1;">
+                <p style="font-size: 18px; line-height: 1.6; color: #ccc;">We specialize in crafting lightning-fast, visually immersive digital products. WEBWORKS is where engineering meets high-end aesthetics.</p>
+                <div style="margin-top: 25px; display: flex; gap: 20px; font-size: 11px; font-weight: 900; color: #b28dff;">
+                    <span>◆ HIGH PERFORMANCE</span>
+                    <span>◆ MODERN UX</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="info" style="padding-top: 0;">
+    <div class="reveal-box">
+        <h2>02. Services</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg">
+                <div class="card-content">
+                    <h3>UI ARCHITECTURE</h3>
+                    <p style="font-size: 14px; color: #888; margin-top: 10px;">Fluid interfaces built for the modern web.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg">
+                <div class="card-content">
+                    <h3>ENGINEERING</h3>
+                    <p style="font-size: 14px; color: #888; margin-top: 10px;">Optimized code for maximum speed and SEO.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="cost" style="padding-top: 0;">
+    <div class="reveal-box">
+        <h2>03. Pricing</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg">
+                <div class="card-content">
+                    <h3 style="font-size: 32px; color: #fff;">₹2999</h3>
+                    <p style="font-size: 12px; margin-bottom: 20px;">Standard digital presence.</p>
+                    <a href="upi://pay?pa=9380368832@ybl&pn=WEBWORKS&am=2999&cu=INR" onclick="startPayment(2999)">
+                        <button class="buy-btn">Acquire</button>
+                    </a>
+                    <button id="confirm-2999" class="confirm-btn" onclick="paymentDone(2999,'Simple')">VERIFY</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg">
+                <div class="card-content">
+                    <h3 style="font-size: 32px; color: #fff;">₹5999</h3>
+                    <p style="font-size: 12px; margin-bottom: 20px;">Advanced business engine.</p>
+                    <a href="upi://pay?pa=9380368832@ybl&pn=WEBWORKS&am=5999&cu=INR" onclick="startPayment(5999)">
+                        <button class="buy-btn">Acquire</button>
+                    </a>
+                    <button id="confirm-5999" class="confirm-btn" onclick="paymentDone(5999,'Advanced')">VERIFY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="works" style="padding-top: 0;">
+    <div class="reveal-box">
+        <h2>04. Work</h2>
+        <div class="card" onclick="window.open('https://darsh-anan.github.io/arros-pegions-and-exotics/','_blank')">
+            <img src="https://images.pexels.com/photos/2444403/pexels-photo-2444403.jpeg" style="height: 300px;">
+            <div class="card-content">
+                <h3>ARROS PIGEONS</h3>
+                <p style="color: #888;">E-commerce & Bird Sanctuary Portfolio</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 WEBWORKS • ELEVATING THE STANDARDS</p>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/919380368832">💬</a>
+
+<script>
+// 1. FASTER CURSOR
+const cursor = document.getElementById('cursor');
+const follower = document.getElementById('cursor-follower');
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+    follower.style.transform = `translate3d(${e.clientX - 12}px, ${e.clientY - 12}px, 0)`;
+});
+
+// 2. FASTER REVEAL
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal-box').forEach(box => observer.observe(box));
+
+// 3. PAYMENT LOGIC
+function startPayment(amount){
+    sessionStorage.setItem("payment_"+amount,"started");
+    document.getElementById("confirm-"+amount).classList.add("enabled");
+}
+
+function paymentDone(amount,type){
+    if(!sessionStorage.getItem("payment_"+amount)) return alert("Initiate payment first.");
+    window.location.href="https://wa.me/919380368832?text="+encodeURIComponent("Paid ₹"+amount+" for "+type+" Website.");
+}
+
+// Hover Scale
+document.querySelectorAll('a, button, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => follower.style.transform += ' scale(2)');
+    el.addEventListener('mouseleave', () => follower.style.transform = follower.style.transform.replace(' scale(2)', ''));
+});
+</script>
+
+</body>
+</html>
